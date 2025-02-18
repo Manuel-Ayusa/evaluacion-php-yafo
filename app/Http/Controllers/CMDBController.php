@@ -13,19 +13,14 @@ class CMDBController extends Controller
 {
     public function categorias(int $id)
     {   
-        $urlEntornoAPI = config('services.api-aleph.url_entorno');
-
         $data = [
             'api_key' => config('services.api-aleph.api_key'),
             'categoria_id' => $id
         ];
 
-        $response = Http::asForm()->post($urlEntornoAPI . 'API/get_cmdb/', $data);
+        $response = Http::asForm()->post(config('services.api-aleph.url_entorno') . 'API/get_cmdb/', $data);
 
         $cmdb = $response['cmdb'];
-
-        return $cmdb;
-        //return array_keys($cmdb[0]);
 
         return view('CMDB.categorias', compact('cmdb'));
     }
