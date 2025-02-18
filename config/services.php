@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'api-aleph' => [
+        'url_entorno' => env('URL_ENTORNO_API_ALEPH'),
+        'api_key' => env('API_KEY_ALEPH')
+    ],
+
 ];
