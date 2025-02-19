@@ -4,28 +4,27 @@
     
 @section('content')
 
-<h1 class="text-center mt-2">Registros</h1>
+<h1 class="text-center mt-2 border-bottom pb-3">Registros de la categoria: {{$categoria}}</h1>
 
-<a class="btn btn-primary" href="{{url()->previous()}}">Volver</a>
+<a class="btn btn-primary my-2" href="{{url()->previous()}}">Volver</a>
 
-<div class="card-body mt-3">
-    <table class="table table-striped border">
+<div class="card-body">
+    <table class="table table-striped border table-hover">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Fecha de creación</th>
-                <th>Activado</th>
-                <th></th>
+                <th class="border">ID</th>
+                <th class="border">Nombre</th>
+                <th class="border">Fecha de creación</th>
+                <th class="border">Activado</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($cmdb as $item)
                 <tr>
-                    <td>{{$item['identificador']}}</td>
-                    <td>{{$item['nombre']}}</td>
-                    <td>{{$item['fecha_creacion']}}</td>
-                    <td>{{$item['activado']}}</td>
+                    <td class="border">{{$item['identificador']}}</td>
+                    <td class="border">{{$item['nombre']}}</td>
+                    <td class="border">{{$item['fecha_creacion']}}</td>
+                    <td class="border">{{$item['activado']}}</td>
                 </tr>
             @endforeach
         </tbody>

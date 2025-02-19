@@ -4,17 +4,7 @@
     
 @section('content')
 
-<h1 class="text-center mt-2">Categorias</h1>
-
-{{-- <ul class="list-group">
-
-    @foreach ($categorias as $categoria)
-    
-        <a href="{{ route('cmdb.categoria', $categoria['id']) }}?categoria={{ $categoria['nombre'] }}" class="text-decoration-none"><li class="mt-2 list-group-item btn btn-primary">{{$categoria['nombre']}}</li></a>   
-
-    @endforeach
-
-</ul> --}}
+<h1 class="text-center mt-2 border-bottom pb-3">Categorias</h1>
 
 @if (session('info'))
                     
@@ -24,10 +14,10 @@
 
 @endif
 
-<a href="{{ route('cmdb.create')}}" class="btn btn-info ">Importar registros</a>
+<a href="{{ route('cmdb.create')}}" class="btn btn-info ms-2">Importar registros</a>
 
 <div class="card-body mt-3">
-    <table class="table table-striped border">
+    <table class="table table-striped border table-hover">
         <thead>
             <tr>
                 <th class="text-center">Nombre</th>
@@ -40,10 +30,18 @@
                 <tr>
                     <td class="ps-2 text-center">{{$categoria['nombre']}}</td>
                     <td class="text-end">
-                        <a href="{{ route('cmdb.categoria', $categoria['id']) }}?categoria={{$categoria['nombre']}}" class="btn btn-success">Ver registros</a>
+                        <form action="{{ route('cmdb.categoria', $categoria['id']) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="nombreCategoria" value="{{$categoria['nombre']}}">
+                            <input class="btn btn-success btn-sm" type="submit" value="Ver registros">
+                        </form>
                     </td>
-                    <td class="text-end">
-                        <a href="{{ route('cmdb.export', $categoria['id']) }}?categoria={{$categoria['nombre']}}" class="btn btn-primary">Exportar registros</a>
+                    <td class="text-center">
+                        <form action="{{ route('cmdb.export', $categoria['id']) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="nombreCategoria" value="{{$categoria['nombre']}}">
+                            <input class="btn btn-primary btn-sm" type="submit" value="Exportar registros">
+                        </form>
                     </td>
                 </tr>
             @endforeach
