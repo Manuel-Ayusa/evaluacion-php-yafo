@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class CMDBController extends Controller
 {
-    public function categorias(int $id)
+    public function categorias(Request $request,int $id)
     {   
         $data = [
             'api_key' => config('services.api-aleph.api_key'),
@@ -22,10 +22,12 @@ class CMDBController extends Controller
 
         $cmdb = $response['cmdb'];
 
-        return view('CMDB.categorias', compact('cmdb'));
+        $categoria = $request->nombreCategoria;
+
+        return view('CMDB.categorias', compact('cmdb', 'categoria'));
     }
 
-    public function export(int $id)
+    public function export(Request $request, int $id)
     {
         $data = [
             'api_key' => config('services.api-aleph.api_key'),
@@ -38,10 +40,12 @@ class CMDBController extends Controller
 
         $fecha = date('Y-m-d');
 
-        $excel = Excel::store(new CMDBExport($cmdb), 'reportes/' . request('categoria') . '/'. $fecha . '.xls');
+        $categoria = $request->nombreCategoria;
+
+        $excel = Excel::store(new CMDBExport($cmdb), 'reportes/' . $categoria . '/'. $fecha . '.xls');
 
         if ($excel) {
-            return redirect()->route('categorias.index')->with('info', 'Los registros de la categoria "' . request('categoria') . '" se exportaron con exito.'); 
+            return redirect()->route('categorias.index')->with('info', 'Los registros de la categoria "' . $categoria . '" se exportaron con exito.'); 
         } else {
             return redirect()->route('categorias.index')->with('info', 'Algo falló.');
         }
@@ -58,7 +62,13 @@ class CMDBController extends Controller
             'file' => 'required|mimes:xls,xlsx'
         ]);
         
-        Excel::import(new CMDBImport, $request->file('file'));
+        try {
+            Excel::import(new CMDBImport, $request->file('file'));
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+
+            return back()->withErrors($failures);
+        }
 
         return redirect()->route('categorias.index')->with('info', '¡Archivo importado con exito!'); 
     }
