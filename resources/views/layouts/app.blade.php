@@ -11,9 +11,9 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="shortcut icon" href="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500">
-
+    
         <!-- Scripts -->
-        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        @vite(['resources/bootstrap/css/bootstrap.min.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
         <div class="bg-gray-100">
