@@ -25,6 +25,11 @@ class CMDBExport implements FromArray, WithHeadings
 
     public function headings(): array
     {
-        return array_keys($this->array[0]);
+        //si el array contiene encabezados los retorna en un array, de lo contrario retorna un array vacio
+        if (isset($this->array[0])) {
+            return array_keys($this->array[0]);
+        } else {
+            return [];
+        }
     }
 }
