@@ -15,8 +15,8 @@ class CMDBImport implements ToCollection, WithValidation, WithHeadingRow
     */
     public function collection(Collection $collection)
     {   
-        // Si no hay filas o todas están vacías, lanzar una excepción
-        if ($collection->isEmpty() || $collection->isSheetEmpty()) {
+        // Si no hay filas, lanzar una excepción
+        if ($collection->isEmpty()) {
             throw new \Exception('El archivo Excel está vacío.');
         }
 
