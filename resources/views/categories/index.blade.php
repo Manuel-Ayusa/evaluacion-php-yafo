@@ -30,9 +30,10 @@
                 <tr>
                     <td class="ps-2 text-center">{{$categoria['nombre']}}</td>
                     <td class="text-end">
-                        <form action="{{ route('cmdb.categoria', $categoria['id']) }}" method="POST">
+                        <form action="{{ route('cmdb.categoria') }}" method="POST">
                             @csrf
                             <input type="hidden" name="nombreCategoria" value="{{$categoria['nombre']}}">
+                            <input type="hidden" name="idCategoria" value="{{$categoria['id']}}">
                             <input class="btn btn-success btn-sm" type="submit" value="Ver registros">
                         </form>
                     </td>
@@ -40,6 +41,7 @@
                         <form action="{{ route('cmdb.export', $categoria['id']) }}" method="POST">
                             @csrf
                             <input type="hidden" name="nombreCategoria" value="{{$categoria['nombre']}}">
+                            <input type="hidden" name="idCategoria" value="{{$categoria['id']}}">
                             <input class="btn btn-primary btn-sm" type="submit" value="Exportar registros">
                         </form>
                     </td>
