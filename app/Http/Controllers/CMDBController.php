@@ -11,11 +11,11 @@ use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class CMDBController extends Controller
 {
-    public function categorias(Request $request,int $id)
+    public function categorias(Request $request)
     {   
         $data = [
             'api_key' => config('services.api-aleph.api_key'),
-            'categoria_id' => $id
+            'categoria_id' => $request->idCategoria
         ];
 
         $response = Http::asForm()->post(config('services.api-aleph.url_entorno') . 'API/get_cmdb/', $data);
@@ -27,11 +27,11 @@ class CMDBController extends Controller
         return view('CMDB.categorias', compact('cmdb', 'categoria'));
     }
 
-    public function export(Request $request, int $id)
+    public function export(Request $request)
     {
         $data = [
             'api_key' => config('services.api-aleph.api_key'),
-            'categoria_id' => $id
+            'categoria_id' => $request->idCategoria
         ];
 
         $response = Http::asForm()->post(config('services.api-aleph.url_entorno') . 'API/get_cmdb/', $data);
